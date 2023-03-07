@@ -7,13 +7,16 @@
 
 import Foundation
 
+private let BASE_URL = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/"
+
 protocol Service{
-    static func createProduct<T: Codable>(urlStr: String, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
+    static func createProduct<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
+    static func loadDataFromURL<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void)
 }
 
 class NetworkService : Service{
     
-    static  func createProduct<T: Codable>(urlStr: String, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
+    static  func createProduct<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
 //        let params: [String : Any] = [
 //            "product":[
 //                "title": "Zinab",
@@ -25,9 +28,9 @@ class NetworkService : Service{
 //        ]
         
 
-//        let url = URL(string: "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products.json" )
-        
-        let url = URL(string: urlStr)
+//        let url = URL(string: "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products/8149693366562.json" )
+        let path = "\(BASE_URL)\(endPoint.path)"
+        let url = URL(string: path)
         var urlRequst = URLRequest(url: url!)
         urlRequst.httpMethod = "post"
         urlRequst.httpShouldHandleCookies = false
@@ -62,7 +65,7 @@ class NetworkService : Service{
     
     
     // using url sesion
-    func loadDataFromURL<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
+    static func loadDataFromURL<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
         
         let url = URL(string: urlStr)
         guard let url = url else{ return }
@@ -74,8 +77,7 @@ class NetworkService : Service{
                 completionHandeler(nil, error)
             }else{
                 let res = try? JSONDecoder().decode(T.self, from: data!)
-                // print(res?.customers)
-                //                let movieArray = res?.items
+           
                 completionHandeler(res, nil)
             }
             

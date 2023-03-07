@@ -14,19 +14,28 @@ class ProductViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        productViewModel = ProductViewModel()
+//        let url = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products/8149693366562.json"
+//        NetworkService.loadDataFromURL(urlStr: url) { [weak self] (data: ProductInfo?, error) in
+//            print(data?.product.title)
+//        }
+        addProductInfo()
+        
+        
+    }
+    
+    
+    
+    func addProductInfo(){
         let params: [String : Any] = [
             "product":[
-                "title": "sohila",
-                "body_html": "Good sohila!",
-                "vendor": "sohila",
-                "product_type": "sohila",
-                "status": "active"
+                "title": "hadeer",
+                "body_html": "Good hadeer!",
+                "vendor": "hadeer",
+                "product_type": "hadeer",
+                "status": "draft"
             ]
         ]
-    
-        let url = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products.json"
-        
-        productViewModel = ProductViewModel()
         
         productViewModel.bindResultToProduct = {[weak self] in
             
@@ -34,10 +43,8 @@ class ProductViewController: UIViewController {
             
         }
         
-        productViewModel.createProduct(urlStr: url, params: params)
-        
+        productViewModel.createProduct(params: params)
     }
-    
 
 
 }

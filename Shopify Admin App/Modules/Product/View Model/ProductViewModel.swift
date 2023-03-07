@@ -18,12 +18,13 @@ class ProductViewModel{
         }
     }
 
-    func createProduct(urlStr: String, params: [String: Any]){
-        NetworkService.createProduct(urlStr: urlStr, params: params) { [weak self] (data: ProductInfo?, error) in
+    func createProduct(params: [String: Any]){
+        NetworkService.createProduct(endPoint: EndPoints.createNewProduct, params: params) { [weak self] (data: ProductInfo?, error) in
             guard let responsData = data else{ return}
             self?.allProduct = responsData
             print(self?.allProduct.product)
             
         }
     }
+    
 }
