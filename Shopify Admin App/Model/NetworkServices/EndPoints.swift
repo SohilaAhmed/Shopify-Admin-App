@@ -10,15 +10,18 @@ enum EndPoints {
     case createNewProduct
     case createProductImg(id:Int)
     case createProductVariants(id:Int)
+    case addProductToCustomCollection
     
     var path:String{
         switch self {
-        case .createNewProduct:
-            return "products.json"
-        case .createProductImg(id: let productId):
-            return "products/\(productId)/images.json"
-        case .createProductVariants(id: let productId):
-            return "products/\(productId)/variants.json"
+            case .createNewProduct:
+                return "products.json"
+            case .createProductImg(id: let productId):
+                return "products/\(productId)/images.json"
+            case .createProductVariants(id: let productId):
+                return "products/\(productId)/variants.json"
+            case .addProductToCustomCollection:
+                return "collects.json"
         }
     }
     

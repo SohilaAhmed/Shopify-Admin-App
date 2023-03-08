@@ -50,7 +50,7 @@ class NetworkService : Service{
                 do {
                     let decoder = JSONDecoder()
                     let myData = try decoder.decode(T.self , from: data)
-                    print(myData)
+//                    print(myData)
                     completionHandeler(myData, nil)
                 } catch {
                     print("Error decoding JSON: \(error)")

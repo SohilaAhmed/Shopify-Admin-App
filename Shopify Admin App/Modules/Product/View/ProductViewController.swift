@@ -17,15 +17,20 @@ class ProductViewController: UIViewController {
     @IBOutlet weak var productVendorMenu: UIButton!
     @IBOutlet weak var productmenu: UIButton!
     @IBOutlet weak var productCustomCellectionMenu: UIButton!
+    @IBOutlet weak var productImgSrc: UITextField!
+    
     
     var productTypeRes: String?
     var productVendorRes: String?
-    var productCustomCellectionRes: String?
+    var productCustomCellectionRes: Int?
+    
+    var productId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productViewModel = ProductViewModel()
+        
         //        let url = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products/8149693366562.json"
         //        NetworkService.loadDataFromURL(urlStr: url) { [weak self] (data: ProductInfo?, error) in
         //            print(data?.product.title)
@@ -34,35 +39,87 @@ class ProductViewController: UIViewController {
         productTypeMenu()
         productVendorMenuMethod()
         productCustomCellectionMenuMethod()
-//        addProductInfo(title: productTitleTF.text ?? "", details: productDetailsTF.text ?? "", vendor: productVendorRes ?? "", productType: productTypeRes ?? "", price: productPriceTF.text ?? "")
+        
         
     }
     
     
-    
-    func addProductInfo(title: String, details: String, vendor: String,productType: String, price: String){
+    //add product title, vender(smart collection), varint(price), productType(floaty button filter)
+    func addProductInfo(title: String, details: String, vendor: String,productType: String, price: String, imgSrc: String, collectionId: Int){
+        
         let params: [String : Any] = [
             "product":[
-                "title": title,
+                "title": "\(vendor) | \(title)",
                 "body_html": details,
                 "vendor": vendor,
                 "product_type": productType,
                 "status": "draft",
                 "published": false,
                 "variants": [
-                    "option1": "Black",
-                    "price": price
+                    [
+                        "option1": "Black",
+                        "price": price
+                    ]
                 ]
             ]
         ]
         
         productViewModel.bindResultToProduct = {[weak self] in
-            
             print((self?.productViewModel.allProduct.product.id) ?? 0)
+            self?.productId = (self?.productViewModel.allProduct.product.id) ?? 0
+        
+            self?.addProductImg(productId: self?.productId ?? 0, imgSrc: imgSrc)
             
+            self?.addProductToCustomCollection(productId: self?.productId ?? 0, collectionId: collectionId)
         }
         
         productViewModel.createProduct(params: params)
+    }
+    
+    // add product image
+    func addProductImg(productId: Int, imgSrc: String){
+        let params: [String : Any] = [
+            "image":[
+                //                8151494459682  8154944569634 8154956955938 "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                "product_id": productId,
+                "src": imgSrc
+            ]
+        ]
+        productViewModel.bindImg = {[weak self] in
+            
+            print((self?.productViewModel.productImg.image.src) ?? "")
+        }
+        
+        productViewModel.createProductImg(params: params, id: productId)
+    }
+    
+    //add product to custom collection
+    func addProductToCustomCollection(productId: Int, collectionId: Int){
+        let params: [String : Any] = [
+            "collect":[
+                "product_id": productId,
+                "collection_id": collectionId
+            ]
+        ]
+        productViewModel.bindProductCustomCollection = {[weak self] in
+            print((self?.productViewModel.productCustomCollection.collect.collection_id) ?? "")
+        }
+        
+        productViewModel.addProdoctCustomCollection(params: params)
+    }
+    
+    
+    @IBAction func addProductButtonAction(_ sender: Any) {
+        var title = productTitleTF.text ?? ""
+        var details = productDetailsTF.text ?? ""
+        var vendor = productVendorRes ?? ""
+        var productType = productTypeRes ?? ""
+        var price = productPriceTF.text ?? ""
+        var imgSrc = productImgSrc.text ?? ""
+        var collectionId = productCustomCellectionRes ?? 0
+        
+        addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
+        
     }
     
     
@@ -83,7 +140,7 @@ class ProductViewController: UIViewController {
         
         productmenu.showsMenuAsPrimaryAction = true
         productmenu.changesSelectionAsPrimaryAction = true
-     //   productType.preferredBehavioralStyle = .automatic
+        //   productType.preferredBehavioralStyle = .automatic
     }
     
     func productVendorMenuMethod(){
@@ -124,41 +181,41 @@ class ProductViewController: UIViewController {
             UIAction(title: "VANS",handler: { [weak self] action in
                 self?.productVendorRes = "VANS"
             })
-
+            
         ])
-
+        
         productVendorMenu.showsMenuAsPrimaryAction = true
         productVendorMenu.changesSelectionAsPrimaryAction = true
-//       // productVendor.preferredBehavioralStyle = .automatic
+        //       // productVendor.preferredBehavioralStyle = .automatic
     }
-
+    
     
     func productCustomCellectionMenuMethod(){
         
         productCustomCellectionMenu.menu = UIMenu(title: "Product Custom Collection", options: .singleSelection, children: [
             UIAction(title: "Home page",handler: { [weak self] action in
-                self?.productCustomCellectionRes = "Home page"
+                self?.productCustomCellectionRes = 437933703458
             }),
             UIAction(title: "KID", handler: { [weak self] action in
-                self?.productCustomCellectionRes = "KID"
+                self?.productCustomCellectionRes = 437934620962
             }),
             UIAction(title: "MEN",handler: { [weak self] action in
-                self?.productCustomCellectionRes = "MEN"
+                self?.productCustomCellectionRes = 437934555426
             }),
             UIAction(title: "TEAM",handler: { [weak self] action in
-                self?.productCustomCellectionRes = "TEAM"
+                self?.productCustomCellectionRes = 438126182690
             }),
             UIAction(title: "SALE",handler: { [weak self] action in
-                self?.productCustomCellectionRes = "SALE"
+                self?.productCustomCellectionRes = 437934653730
             }),
             UIAction(title: "WOMEN",handler: { [weak self] action in
-                self?.productCustomCellectionRes = "WOMEN"
+                self?.productCustomCellectionRes = 437934588194
             })
-
+            
         ])
-
+        
         productCustomCellectionMenu.showsMenuAsPrimaryAction = true
         productCustomCellectionMenu.changesSelectionAsPrimaryAction = true
-//       // productVendor.preferredBehavioralStyle = .automatic
+        //       // productVendor.preferredBehavioralStyle = .automatic
     }
 }
