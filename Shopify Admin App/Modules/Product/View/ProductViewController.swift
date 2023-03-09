@@ -116,13 +116,13 @@ class ProductViewController: UIViewController {
     
     
     @IBAction func addProductButtonAction(_ sender: Any) {
-        var title = productTitleTF.text ?? ""
-        var details = productDetailsTF.text ?? ""
-        var vendor = productVendorRes ?? ""
-        var productType = productTypeRes ?? ""
-        var price = productPriceTF.text ?? ""
-        var imgSrc = productImgSrc.text ?? ""
-        var collectionId = productCustomCellectionRes ?? 0
+        let title = productTitleTF.text ?? ""
+        let details = productDetailsTF.text ?? ""
+        let vendor = productVendorRes ?? ""
+        let productType = productTypeRes ?? ""
+        let price = productPriceTF.text ?? ""
+        let imgSrc = productImgSrc.text ?? ""
+        let collectionId = productCustomCellectionRes ?? 0
         
         addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
     }
@@ -132,11 +132,9 @@ class ProductViewController: UIViewController {
         productmenu.menu = UIMenu(title: "Product Type", options: .singleSelection, children: [
             UIAction(title: "ACCESSORIES",handler: { [weak self] action in
                 self?.productTypeRes = "ACCESSORIES"
-                print("1")
             }),
             UIAction(title: "T-SHIRTS", handler: { [weak self] action in
                 self?.productTypeRes = "T-SHIRTS"
-                print("2")
             }),
             UIAction(title: "SHOES",handler: { [weak self] action in
                 self?.productTypeRes = "SHOES"
