@@ -31,23 +31,19 @@ class ProductViewController: UIViewController {
         
         productViewModel = ProductViewModel()
         
-        //        let url = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products/8149693366562.json"
-        //        NetworkService.loadDataFromURL(urlStr: url) { [weak self] (data: ProductInfo?, error) in
-        //            print(data?.product.title)
-        //        }
-        
         productTypeMenu()
         productVendorMenuMethod()
         productCustomCellectionMenuMethod()
         
         
+       // NetworkService.deleteFromApi(endPoint: EndPoints.updateProduct(id: 8155363213602))
     }
     
     
     //add product title, vender(smart collection), varint(price), productType(floaty button filter)
     func addProductInfo(title: String, details: String, vendor: String,productType: String, price: String, imgSrc: String, collectionId: Int){
         
-        let params: [String : Any] = [
+        let params: [String: Any] = [
             "product":[
                 "title": "\(vendor) | \(title)",
                 "body_html": details,
@@ -67,12 +63,13 @@ class ProductViewController: UIViewController {
         productViewModel.bindResultToProduct = {[weak self] in
             print((self?.productViewModel.allProduct.product.id) ?? 0)
             self?.productId = (self?.productViewModel.allProduct.product.id) ?? 0
-        
+            
             self?.addProductImg(productId: self?.productId ?? 0, imgSrc: imgSrc)
             
             self?.addProductToCustomCollection(productId: self?.productId ?? 0, collectionId: collectionId)
+            
+            self?.editProductState(productId: self?.productId ?? 0)
         }
-        
         productViewModel.createProduct(params: params)
     }
     
@@ -86,10 +83,8 @@ class ProductViewController: UIViewController {
             ]
         ]
         productViewModel.bindImg = {[weak self] in
-            
             print((self?.productViewModel.productImg.image.src) ?? "")
         }
-        
         productViewModel.createProductImg(params: params, id: productId)
     }
     
@@ -108,6 +103,17 @@ class ProductViewController: UIViewController {
         productViewModel.addProdoctCustomCollection(params: params)
     }
     
+    // edit product state
+    func editProductState(productId: Int){
+        let params: [String: Any] = [
+            "product":[
+                "status": "active",
+                "published": true
+            ]
+        ]
+        productViewModel.editProduct(params: params, id: productId)
+    }
+    
     
     @IBAction func addProductButtonAction(_ sender: Any) {
         var title = productTitleTF.text ?? ""
@@ -119,7 +125,6 @@ class ProductViewController: UIViewController {
         var collectionId = productCustomCellectionRes ?? 0
         
         addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
-        
     }
     
     
@@ -140,7 +145,6 @@ class ProductViewController: UIViewController {
         
         productmenu.showsMenuAsPrimaryAction = true
         productmenu.changesSelectionAsPrimaryAction = true
-        //   productType.preferredBehavioralStyle = .automatic
     }
     
     func productVendorMenuMethod(){
@@ -180,13 +184,15 @@ class ProductViewController: UIViewController {
             }),
             UIAction(title: "VANS",handler: { [weak self] action in
                 self?.productVendorRes = "VANS"
+            }),
+            UIAction(title: "TEST",handler: { [weak self] action in
+                self?.productVendorRes = "TEST"
             })
             
         ])
         
         productVendorMenu.showsMenuAsPrimaryAction = true
         productVendorMenu.changesSelectionAsPrimaryAction = true
-        //       // productVendor.preferredBehavioralStyle = .automatic
     }
     
     

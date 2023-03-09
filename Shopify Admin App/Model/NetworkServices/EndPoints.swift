@@ -8,9 +8,11 @@
 import Foundation
 enum EndPoints {
     case createNewProduct
-    case createProductImg(id:Int)
-    case createProductVariants(id:Int)
+    case createProductImg(id: Int)
+    case createProductVariants(id: Int)
     case addProductToCustomCollection
+    case updateProduct(id: Int)
+ 
     
     var path:String{
         switch self {
@@ -22,6 +24,8 @@ enum EndPoints {
                 return "products/\(productId)/variants.json"
             case .addProductToCustomCollection:
                 return "collects.json"
+            case .updateProduct(id: let productId):
+                return "products/\(productId).json"
         }
     }
     

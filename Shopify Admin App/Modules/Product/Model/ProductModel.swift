@@ -13,8 +13,8 @@ struct ProductInfo: Codable {
 
 // MARK: - Product
 struct Product: Codable {
-    let id: Int
-    let title, bodyHTML, vendor, productType, status : String?
+    let id: Int?
+    let title, body_html, vendor, product_type, status : String?
 //    let createdAt: Date
 //    let handle: String
 //    let updatedAt, publishedAt: Date
@@ -25,29 +25,11 @@ struct Product: Codable {
     let images: [Image]
 //    let image: Image
 
-    enum CodingKeys: String, CodingKey {
-        case id, title
-        case bodyHTML = "body_html"
-        case vendor, status
-        case productType = "product_type"
-//        case createdAt = "created_at"
-//        case handle
-//        case updatedAt = "updated_at"
-//        case publishedAt = "published_at"
-//        case templateSuffix = "template_suffix"
-//        case status
-//        case publishedScope = "published_scope"
-//        case tags
-//        case adminGraphqlAPIID = "admin_graphql_api_id"
-        case variants, images
-//        , image, options
-    }
 }
 
 // MARK: - Image
 struct Image: Codable {
     let id, productID, position: Int
-    let alt: String
     let width, height: Int
     let src: String
     
@@ -56,7 +38,7 @@ struct Image: Codable {
         case id
         case productID = "product_id"
         case position
-        case alt, width, height, src
+        case width, height, src
         
     }
 }

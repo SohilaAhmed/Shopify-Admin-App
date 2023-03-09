@@ -29,7 +29,7 @@
 //    
 //    func createProductImg(params: [String: Any], id: Int){
 //        
-//        NetworkService.createProduct(endPoint: EndPoints.createProductImg(id: id), params: params) { [weak self] (data: ProductImgModel?, error) in
+//        NetworkService.postApi(endPoint: EndPoints.createProductImg(id: id), params: params) { [weak self] (data: ProductImgModel?, error) in
 //            guard let responsData = data else{ return}
 //            self?.productImg = responsData
 //            print(self?.productImg.image.src)
@@ -38,7 +38,7 @@
 //    }
 //    
 //    func createProductVariant(params: [String: Any], id: Int){
-//        NetworkService.createProduct(endPoint: EndPoints.createProductVariants(id: id), params: params) { [weak self] (data: ProductVariantModel?, error) in
+//        NetworkService.postApi(endPoint: EndPoints.createProductVariants(id: id), params: params) { [weak self] (data: ProductVariantModel?, error) in
 //            guard let responsData = data else{ return}
 //            self?.productVariant = responsData
 //            print(self?.productVariant.variant.title)

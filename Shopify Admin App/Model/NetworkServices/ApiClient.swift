@@ -10,25 +10,15 @@ import Foundation
 private let BASE_URL = "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/"
 
 protocol Service{
-    static func createProduct<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
-    static func loadDataFromURL<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void)
+    static func postApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
+    static func getApi<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void)
+    static  func updateApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
+    static  func deleteFromApi(endPoint: EndPoints)
 }
 
 class NetworkService : Service{
     
-    static  func createProduct<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
-//        let params: [String : Any] = [
-//            "product":[
-//                "title": "Zinab",
-//                "body_html": "Good Zinab!",
-//                "vendor": "Zinab",
-//                "product_type": "Zinab",
-//                "status": "active"
-//            ]
-//        ]
-        
-
-//        let url = URL(string: "https://b24cfe7f0d5cba8ddb793790aaefa12a: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@mad-ios-2.myshopify.com/admin/api/2023-01/products/8149693366562.json" )
+    static  func postApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
         let path = "\(BASE_URL)\(endPoint.path)"
         let url = URL(string: path)
         var urlRequst = URLRequest(url: url!)
@@ -50,7 +40,7 @@ class NetworkService : Service{
                 do {
                     let decoder = JSONDecoder()
                     let myData = try decoder.decode(T.self , from: data)
-//                    print(myData)
+                    //                    print(myData)
                     completionHandeler(myData, nil)
                 } catch {
                     print("Error decoding JSON: \(error)")
@@ -65,7 +55,7 @@ class NetworkService : Service{
     
     
     // using url sesion
-    static func loadDataFromURL<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
+    static func getApi<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
         
         let url = URL(string: urlStr)
         guard let url = url else{ return }
@@ -77,7 +67,7 @@ class NetworkService : Service{
                 completionHandeler(nil, error)
             }else{
                 let res = try? JSONDecoder().decode(T.self, from: data!)
-           
+                
                 completionHandeler(res, nil)
             }
             
@@ -85,5 +75,65 @@ class NetworkService : Service{
         task.resume()
     }
     
+    static  func updateApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
+        let path = "\(BASE_URL)\(endPoint.path)"
+        let url = URL(string: path)
+        var urlRequst = URLRequest(url: url!)
+        urlRequst.httpMethod = "PUT"
+        urlRequst.httpShouldHandleCookies = false
+        
+        do{
+            let requestBody = try JSONSerialization.data(withJSONObject: params,options: .prettyPrinted)
+            urlRequst.httpBody = requestBody
+            urlRequst.addValue("application/Json", forHTTPHeaderField: "content-type")
+            
+        }catch let error{
+            debugPrint(error.localizedDescription)
+        }
+        
+        URLSession.shared.dataTask(with: urlRequst){ (data,response, error)  in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let myData = try decoder.decode(T.self , from: data)
+                    //                    print(myData)
+                    completionHandeler(myData, nil)
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                    completionHandeler(nil, error)
+                }
+            }
+            
+        }.resume()
+        
+    }
     
+    static  func deleteFromApi(endPoint: EndPoints){
+        let path = "\(BASE_URL)\(endPoint.path)"
+        let url = URL(string: path)
+        var urlRequst = URLRequest(url: url!)
+        urlRequst.httpMethod = "DELETE"
+        urlRequst.httpShouldHandleCookies = false
+        
+//        do{
+//            let requestBody = try JSONSerialization.data(withJSONObject: params,options: .prettyPrinted)
+//            urlRequst.httpBody = requestBody
+//            urlRequst.addValue("application/Json", forHTTPHeaderField: "content-type")
+//
+//        }catch let error{
+//            debugPrint(error.localizedDescription)
+//        }
+        
+        URLSession.shared.dataTask(with: urlRequst){ (data,response, error)  in
+            
+            if let data = data {
+                let result = String(data: data, encoding: .utf8)
+                debugPrint(result!)
+            }
+        
+    }.resume()
+    
+}
+
 }
