@@ -36,7 +36,7 @@ class ProductViewController: UIViewController {
         productCustomCellectionMenuMethod()
         
         
-       // NetworkService.deleteFromApi(endPoint: EndPoints.updateProduct(id: 8155363213602))
+        // NetworkService.deleteFromApi(endPoint: EndPoints.updateProduct(id: 8155363213602))
     }
     
     
