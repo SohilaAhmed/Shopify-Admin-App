@@ -54,7 +54,8 @@ class ProductViewController: UIViewController {
                 "variants": [
                     [
                         "option1": "Black",
-                        "price": price
+                        "price": price,
+                        "inventory_management": "shopify"
                     ]
                 ]
             ]

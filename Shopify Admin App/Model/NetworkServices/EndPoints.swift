@@ -12,7 +12,8 @@ enum EndPoints {
     case createProductVariants(id: Int)
     case addProductToCustomCollection
     case updateProduct(id: Int)
- 
+    case couponPriceRule
+    case couponDiscountCode(id: Int)
     
     var path:String{
         switch self {
@@ -26,6 +27,10 @@ enum EndPoints {
                 return "collects.json"
             case .updateProduct(id: let productId):
                 return "products/\(productId).json"
+            case .couponPriceRule:
+                return "price_rules.json"
+            case .couponDiscountCode(id: let priceRuleId):
+                return "price_rules/\(priceRuleId)/discount_codes.json"
         }
     }
     

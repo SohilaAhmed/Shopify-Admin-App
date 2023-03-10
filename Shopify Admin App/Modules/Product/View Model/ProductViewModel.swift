@@ -13,7 +13,6 @@ class ProductViewModel{
     var bindImg: (() -> ()) = {}
     var bindProductCustomCollection: (() -> ()) = {}
     
-    
     var allProduct : ProductInfo!{
         didSet{
             bindResultToProduct()

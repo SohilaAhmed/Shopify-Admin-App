@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		687132AA279E1620EA19702D /* Pods_Shopify_Admin_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D287F727D954FB918B1339DA /* Pods_Shopify_Admin_App.framework */; };
+		7B136A0D29BACE97009C4B33 /* CouponPriceRuleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B136A0C29BACE97009C4B33 /* CouponPriceRuleModel.swift */; };
+		7B136A0F29BAD20C009C4B33 /* CouponViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B136A0E29BAD20C009C4B33 /* CouponViewModel.swift */; };
+		7B136A1129BAD63E009C4B33 /* CouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B136A1029BAD63E009C4B33 /* CouponViewController.swift */; };
+		7B136A1329BAE273009C4B33 /* CouponDiscountCodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B136A1229BAE273009C4B33 /* CouponDiscountCodeModel.swift */; };
 		7B2026E829B61FCF00C70E58 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2026E729B61FCF00C70E58 /* EndPoints.swift */; };
 		7B2026EA29B67F8000C70E58 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2026E929B67F8000C70E58 /* ProductDetailsViewModel.swift */; };
 		7B2026EC29B6815100C70E58 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2026EB29B6815100C70E58 /* ProductDetailsViewController.swift */; };
@@ -52,6 +56,10 @@
 		2DE977DCB6A745AEEE5F3F12 /* Pods-Shopify Admin App-Shopify Admin AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify Admin App-Shopify Admin AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Shopify Admin App-Shopify Admin AppUITests/Pods-Shopify Admin App-Shopify Admin AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		3C9CBDF0D687693F5A99A966 /* Pods_Shopify_Admin_App_Shopify_Admin_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopify_Admin_App_Shopify_Admin_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EB0A55909A5B88339A3E154 /* Pods-Shopify Admin App-Shopify Admin AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopify Admin App-Shopify Admin AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Shopify Admin App-Shopify Admin AppUITests/Pods-Shopify Admin App-Shopify Admin AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7B136A0C29BACE97009C4B33 /* CouponPriceRuleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponPriceRuleModel.swift; sourceTree = "<group>"; };
+		7B136A0E29BAD20C009C4B33 /* CouponViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponViewModel.swift; sourceTree = "<group>"; };
+		7B136A1029BAD63E009C4B33 /* CouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponViewController.swift; sourceTree = "<group>"; };
+		7B136A1229BAE273009C4B33 /* CouponDiscountCodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouponDiscountCodeModel.swift; sourceTree = "<group>"; };
 		7B2026E729B61FCF00C70E58 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		7B2026E929B67F8000C70E58 /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		7B2026EB29B6815100C70E58 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -119,6 +127,72 @@
 				BF72357A806A9989A3ADDEE8 /* Pods_Shopify_Admin_AppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B136A0429BABE07009C4B33 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				7B136A0729BABE3A009C4B33 /* View Model */,
+				7B136A0629BABE33009C4B33 /* View */,
+				7B136A0529BABE21009C4B33 /* Model */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		7B136A0529BABE21009C4B33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7B136A0629BABE33009C4B33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7B136A0729BABE3A009C4B33 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		7B136A0829BAC252009C4B33 /* Copons */ = {
+			isa = PBXGroup;
+			children = (
+				7B136A0B29BAC2C8009C4B33 /* View Model */,
+				7B136A0A29BAC2BF009C4B33 /* View */,
+				7B136A0929BAC2AF009C4B33 /* Model */,
+			);
+			path = Copons;
+			sourceTree = "<group>";
+		};
+		7B136A0929BAC2AF009C4B33 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B136A0C29BACE97009C4B33 /* CouponPriceRuleModel.swift */,
+				7B136A1229BAE273009C4B33 /* CouponDiscountCodeModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7B136A0A29BAC2BF009C4B33 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B136A1029BAD63E009C4B33 /* CouponViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7B136A0B29BAC2C8009C4B33 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B136A0E29BAD20C009C4B33 /* CouponViewModel.swift */,
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 		7B2026E629B61E8600C70E58 /* NetworkServices */ = {
@@ -203,6 +277,8 @@
 		7BC9E47129B5583F004E3FD0 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7B136A0829BAC252009C4B33 /* Copons */,
+				7B136A0429BABE07009C4B33 /* Collection */,
 				7BC9E47329B558CF004E3FD0 /* Product */,
 			);
 			path = Modules;
@@ -510,15 +586,19 @@
 			files = (
 				7BC9E44729B55682004E3FD0 /* Shopify_Admin_App.xcdatamodeld in Sources */,
 				7B2026F029B6822B00C70E58 /* ProductVariantModel.swift in Sources */,
+				7B136A0F29BAD20C009C4B33 /* CouponViewModel.swift in Sources */,
 				7BC9E43D29B55682004E3FD0 /* AppDelegate.swift in Sources */,
 				7B2026EA29B67F8000C70E58 /* ProductDetailsViewModel.swift in Sources */,
 				7B2026EC29B6815100C70E58 /* ProductDetailsViewController.swift in Sources */,
+				7B136A1129BAD63E009C4B33 /* CouponViewController.swift in Sources */,
+				7B136A0D29BACE97009C4B33 /* CouponPriceRuleModel.swift in Sources */,
 				7BC9E47829B55988004E3FD0 /* ProductViewController.swift in Sources */,
 				7B41CA2C29B8EE090099A6AD /* ProductCustomCollectionModel.swift in Sources */,
 				7BC9E43F29B55682004E3FD0 /* SceneDelegate.swift in Sources */,
 				7B2026EE29B681A000C70E58 /* ProductImgModel.swift in Sources */,
 				7BC9E47C29B559FC004E3FD0 /* ApiClient.swift in Sources */,
 				7BC9E47E29B55CA5004E3FD0 /* ProductModel.swift in Sources */,
+				7B136A1329BAE273009C4B33 /* CouponDiscountCodeModel.swift in Sources */,
 				7B2026E829B61FCF00C70E58 /* EndPoints.swift in Sources */,
 				7BC9E47A29B559AD004E3FD0 /* ProductViewModel.swift in Sources */,
 			);
