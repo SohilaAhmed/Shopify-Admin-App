@@ -31,9 +31,8 @@ extension PresentAllCouponViewController: UITableViewDataSource,UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ordersCell", for: indexPath) as! OrdersTableCell
-        cell.createdAtProduct.text = reponseOrsers?[indexPath.row].created_at
-        cell.priceProduct.text = reponseOrsers?[indexPath.row].current_total_price
+        let cell = tableView.dequeueReusableCell(withIdentifier: "couponCell", for: indexPath) as! PresetAllCouponTableViewCell
+        
         return cell
     }
     
