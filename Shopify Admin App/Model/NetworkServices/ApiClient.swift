@@ -54,7 +54,7 @@ class NetworkService : Service{
     
     
     
-    // using url sesion
+    // using url session
     static func getApi<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
         
         let url = URL(string: urlStr)

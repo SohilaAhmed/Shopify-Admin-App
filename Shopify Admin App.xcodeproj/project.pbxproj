@@ -18,6 +18,8 @@
 		7B2026EE29B681A000C70E58 /* ProductImgModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2026ED29B6819F00C70E58 /* ProductImgModel.swift */; };
 		7B2026F029B6822B00C70E58 /* ProductVariantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2026EF29B6822B00C70E58 /* ProductVariantModel.swift */; };
 		7B41CA2C29B8EE090099A6AD /* ProductCustomCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B41CA2B29B8EE090099A6AD /* ProductCustomCollectionModel.swift */; };
+		7B7DDDDF29BBBBF600DD14ED /* PresentAllCouponViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DDDDE29BBBBF600DD14ED /* PresentAllCouponViewController.swift */; };
+		7B7DDDE229BBBED200DD14ED /* PresetAllCouponTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7DDDE129BBBED200DD14ED /* PresetAllCouponTableViewCell.swift */; };
 		7BC9E43D29B55682004E3FD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9E43C29B55682004E3FD0 /* AppDelegate.swift */; };
 		7BC9E43F29B55682004E3FD0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC9E43E29B55682004E3FD0 /* SceneDelegate.swift */; };
 		7BC9E44429B55682004E3FD0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BC9E44229B55682004E3FD0 /* Main.storyboard */; };
@@ -66,6 +68,8 @@
 		7B2026ED29B6819F00C70E58 /* ProductImgModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImgModel.swift; sourceTree = "<group>"; };
 		7B2026EF29B6822B00C70E58 /* ProductVariantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductVariantModel.swift; sourceTree = "<group>"; };
 		7B41CA2B29B8EE090099A6AD /* ProductCustomCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCustomCollectionModel.swift; sourceTree = "<group>"; };
+		7B7DDDDE29BBBBF600DD14ED /* PresentAllCouponViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentAllCouponViewController.swift; sourceTree = "<group>"; };
+		7B7DDDE129BBBED200DD14ED /* PresetAllCouponTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetAllCouponTableViewCell.swift; sourceTree = "<group>"; };
 		7BC9E43929B55682004E3FD0 /* Shopify Admin App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopify Admin App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC9E43C29B55682004E3FD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BC9E43E29B55682004E3FD0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 			isa = PBXGroup;
 			children = (
 				7B136A1029BAD63E009C4B33 /* CouponViewController.swift */,
+				7B7DDDDE29BBBBF600DD14ED /* PresentAllCouponViewController.swift */,
+				7B7DDDE029BBBE8E00DD14ED /* Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,6 +208,14 @@
 				7B2026E729B61FCF00C70E58 /* EndPoints.swift */,
 			);
 			path = NetworkServices;
+			sourceTree = "<group>";
+		};
+		7B7DDDE029BBBE8E00DD14ED /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7B7DDDE129BBBED200DD14ED /* PresetAllCouponTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		7BC9E43029B55682004E3FD0 = {
@@ -584,6 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7DDDE229BBBED200DD14ED /* PresetAllCouponTableViewCell.swift in Sources */,
 				7BC9E44729B55682004E3FD0 /* Shopify_Admin_App.xcdatamodeld in Sources */,
 				7B2026F029B6822B00C70E58 /* ProductVariantModel.swift in Sources */,
 				7B136A0F29BAD20C009C4B33 /* CouponViewModel.swift in Sources */,
@@ -596,6 +611,7 @@
 				7B41CA2C29B8EE090099A6AD /* ProductCustomCollectionModel.swift in Sources */,
 				7BC9E43F29B55682004E3FD0 /* SceneDelegate.swift in Sources */,
 				7B2026EE29B681A000C70E58 /* ProductImgModel.swift in Sources */,
+				7B7DDDDF29BBBBF600DD14ED /* PresentAllCouponViewController.swift in Sources */,
 				7BC9E47C29B559FC004E3FD0 /* ApiClient.swift in Sources */,
 				7BC9E47E29B55CA5004E3FD0 /* ProductModel.swift in Sources */,
 				7B136A1329BAE273009C4B33 /* CouponDiscountCodeModel.swift in Sources */,
