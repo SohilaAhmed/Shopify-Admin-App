@@ -9,8 +9,11 @@ import UIKit
 
 class CouponsViewController: UIViewController {
 
+    @IBOutlet weak var couponValueTypeMenu: UIButton!
     
     var couponsViewModel: CouponsViewModel!
+    
+    var couponValueTypeMenuRes: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +63,22 @@ class CouponsViewController: UIViewController {
         ]
         //1389305561378
         couponsViewModel.createCouponDiscountCode(params: params, couponPriceRuleId: couponPriceRuleId)
+    }
+    
+    
+    
+    func couponValueTypeMenuFunc(){
+        couponValueTypeMenu.menu = UIMenu(title: "Value Type", options: .singleSelection, children: [
+            UIAction(title: "Fixed Amount",handler: { [weak self] action in
+                self?.couponValueTypeMenuRes = "fixed_amount"
+            }),
+            UIAction(title: "Percentage", handler: { [weak self] action in
+                self?.couponValueTypeMenuRes = "percentage"
+            })
+        ])
+        
+        couponValueTypeMenu.showsMenuAsPrimaryAction = true
+        couponValueTypeMenu.changesSelectionAsPrimaryAction = true
     }
      
 }
