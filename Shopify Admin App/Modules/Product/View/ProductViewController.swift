@@ -20,9 +20,9 @@ class ProductViewController: UIViewController {
     @IBOutlet weak var productImgSrc: UITextField!
     
     
-    var productTypeRes: String?
-    var productVendorRes: String?
-    var productCustomCellectionRes: Int?
+    var productTypeRes: String = "ACCESSORIES"
+    var productVendorRes: String = "ADIDAS"
+    var productCustomCellectionRes: Int = 437933703458
     
     var productId: Int?
     
@@ -119,11 +119,11 @@ class ProductViewController: UIViewController {
     @IBAction func addProductButtonAction(_ sender: Any) {
         let title = productTitleTF.text ?? ""
         let details = productDetailsTF.text ?? ""
-        let vendor = productVendorRes ?? ""
-        let productType = productTypeRes ?? ""
+        let vendor = productVendorRes 
+        let productType = productTypeRes 
         let price = productPriceTF.text ?? ""
         let imgSrc = productImgSrc.text ?? ""
-        let collectionId = productCustomCellectionRes ?? 0
+        let collectionId = productCustomCellectionRes 
         
         addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
     }

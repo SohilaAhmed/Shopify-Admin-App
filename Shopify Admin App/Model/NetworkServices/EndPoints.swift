@@ -15,6 +15,8 @@ enum EndPoints {
     case couponPriceRule
     case couponDiscountCode(id: Int)
     case editPriceRule(id:Int)
+    case createSmartCollection
+    case createCustomCollection
     
     var path:String{
         switch self {
@@ -34,6 +36,10 @@ enum EndPoints {
                 return "price_rules/\(priceRuleId)/discount_codes.json"
             case .editPriceRule(id: let priceRuleId):
                 return "price_rules/\(priceRuleId).json"
+            case .createSmartCollection:
+                return "smart_collections.json"
+            case .createCustomCollection:
+                return "custom_collections.json"
         }
     }
     
