@@ -93,6 +93,10 @@ extension DisplayCollectionsVC : UICollectionViewDelegate,UICollectionViewDataSo
             let smartCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "SmartCollectionViewController") as! SmartCollectionViewController
             
             smartCollectionVC.flagEditAdd = 1
+            smartCollectionVC.smartCollectionId = smartCollections[indexPath.row].id
+            smartCollectionVC.smartCollectionTitle = smartCollections[indexPath.row].title
+            smartCollectionVC.smartCollectionImg = smartCollections[indexPath.row].image.src
+            
             
             self.navigationController?.pushViewController(smartCollectionVC, animated: true)
         }
@@ -183,10 +187,8 @@ extension DisplayCollectionsVC: UITableViewDataSource,UITableViewDelegate {
 
             customCollectionVC.flagEditAdd = 1
 
-//            couponVC.priceRuleid = allCoupon[indexPath.row].id
-//            couponVC.priceRuleTitle = allCoupon[indexPath.row].title
-//            couponVC.priceRuleValue = allCoupon[indexPath.row].value
-//            couponVC.priceRuleValueType = allCoupon[indexPath.row].value_type
+            customCollectionVC.customCollectionId = customCollectionResult[indexPath.row].id
+            customCollectionVC.customCollectionTitle = customCollectionResult[indexPath.row].title 
 
             self.navigationController?.pushViewController(customCollectionVC, animated: true)
         }

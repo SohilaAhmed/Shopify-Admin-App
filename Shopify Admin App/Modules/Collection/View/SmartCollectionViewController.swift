@@ -15,6 +15,9 @@ class SmartCollectionViewController: UIViewController {
     var smartCollectionViewModel: SmartCollectionViewModel!
     
     var flagEditAdd: Int? // 0 if add, 1 if edit
+    var smartCollectionId: Int?
+    var smartCollectionTitle: String?
+    var smartCollectionImg: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +25,25 @@ class SmartCollectionViewController: UIViewController {
         smartCollectionViewModel = SmartCollectionViewModel()
  
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if flagEditAdd == 1{
+            print(smartCollectionId ?? 0)
+            smartCollectionNameTF.text = smartCollectionTitle
+            smartCollectionImgTF.text = smartCollectionImg
+        }
+    }
   
     
     @IBAction func doneSmartCollection(_ sender: Any) {
         let title = smartCollectionNameTF.text ?? ""
-        let imgLink = smartCollectionImgTF.text ?? ""
-        createSmartCollection(title: title, src: imgLink)
+        let imgLink = smartCollectionImgTF.text ?? "https://www.pexels.com/photo/a-smartwatch-and-a-laptop-6192117/"
+        if flagEditAdd == 1{
+            editSmartCollection(smartCollectionId: smartCollectionId ?? 0, title: title, imgLink: imgLink)
+        }else{
+            createSmartCollection(title: title, src: imgLink)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -53,6 +69,31 @@ class SmartCollectionViewController: UIViewController {
         }
         
         smartCollectionViewModel.createNewSmartCollection(params: params)
+    }
+    
+    func editSmartCollection(smartCollectionId: Int, title: String, imgLink: String){
+        let params = [
+            "smart_collection":[
+                "id": smartCollectionId,
+                "title": title,
+                "rules": [
+                    [
+                        "condition": title
+                    ]
+                ],
+                "image": [
+                    "src": imgLink
+                ]
+            ]
+        ]
+        
+        smartCollectionViewModel.bindEditSmartCollection = { [weak self] in
+            print(self?.smartCollectionViewModel.editSmartCollection.smart_collection.title ?? "")
+        }
+        
+        smartCollectionViewModel.editSmartCollection(params: params, smartCollectionId: smartCollectionId)
+        
+        
     }
 
 }

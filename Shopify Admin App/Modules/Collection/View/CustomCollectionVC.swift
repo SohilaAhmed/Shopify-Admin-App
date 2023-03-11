@@ -15,6 +15,8 @@ class CustomCollectionVC: UIViewController {
     
     var flagEditAdd: Int? // 0 if add, 1 if edit
     
+    var customCollectionId: Int?
+    var customCollectionTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +24,31 @@ class CustomCollectionVC: UIViewController {
         customCollectionViewModel = CustomCollectionViewModel()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(flagEditAdd == 1){ //edit
+            print(customCollectionId ?? 0)
+
+            customCollectionNameTF.text = customCollectionTitle
+        }
+ 
+        
+    }
  
     
     @IBAction func doneCustomCollection(_ sender: Any) {
         let title = customCollectionNameTF.text ?? ""
-        
-        createSmartCollection(title: title)
-        
+       
+        if(flagEditAdd == 1){ //edit
+            editCustomCollection(customCollectionId: customCollectionId ?? 0, title: title)
+        }else{ //add
+            createCustomCollection(title: title)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 
-    func createSmartCollection(title: String){
+    func createCustomCollection(title: String){
         let params = [
             "custom_collection":[
                 "title": title
@@ -44,6 +60,23 @@ class CustomCollectionVC: UIViewController {
         }
         
         customCollectionViewModel.createNewCustomCollection(params: params)
+    }
+    
+    func editCustomCollection(customCollectionId: Int, title: String){
+        let params = [
+            "custom_collection":[
+                "id": customCollectionId,
+                "title": title 
+            ]
+        ]
+        
+        customCollectionViewModel.bindEditCustomCollection = { [weak self] in
+            print(self?.customCollectionViewModel.editCustomCollection.custom_collection.title ?? "")
+        }
+        
+        customCollectionViewModel.editCustomCollection(params: params, customCollectionId: customCollectionId)
+        
+        
     }
     
 }
