@@ -14,43 +14,87 @@ class CouponsViewController: UIViewController {
     @IBOutlet weak var couponTitleTF: UITextField!
     @IBOutlet weak var couponValueTF: UITextField!
     @IBOutlet weak var couponCodeTF: UITextField!
+    @IBOutlet weak var couponCollectionTargetLabel: UILabel!
+    @IBOutlet weak var couponCodeLabel: UILabel!
+    
     
     
     var couponsViewModel: CouponsViewModel!
     
-    var couponValueTypeMenuRes: String?
-    var couponCollectionTargetMenuCollectionIdRes: [Int]?
-    var couponCollectionTargetMenuTargetRes: String?
+    var couponValueTypeMenuRes: String = "fixed_amount"
+    var couponCollectionTargetMenuCollectionIdRes: [Int] = []
+    var couponCollectionTargetMenuTargetRes: String = "all"
+    
+    var flagEditAdd: Int? // 0 if add, 1 if edit
+    var priceRuleid: Int?
+    var priceRuleValue: String?
+    var priceRuleTitle: String?
+    var priceRuleValueType: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         couponsViewModel = CouponsViewModel()
         
-        couponValueTypeMenuDetails()
+        
         couponCollectionTargetMenuDetails()
 
+        print(flagEditAdd ?? 7)
 
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if flagEditAdd == 1{ //edit
+            couponCollectionTargetMenu.isHidden = true
+            couponCodeTF.isHidden = true
+            couponCollectionTargetLabel.isHidden = true
+            couponCodeLabel.isHidden = true
+            print(priceRuleid!)
+            if(priceRuleValueType == "fixed_amount"){
+                couponValueTypeMenuRes = "fixed_amount"
+                couponValueTypeMenuDetails(fixedState: .on, percentageState: .off)
+            }else{
+                couponValueTypeMenuRes = "percentage"
+                couponValueTypeMenuDetails(fixedState: .off, percentageState: .on)
+            }
+            
+            couponTitleTF.text = priceRuleTitle ?? ""
+            couponValueTF.text = priceRuleValue ?? ""
+            
+        }else{ //add
+            couponValueTypeMenuDetails(fixedState: .on, percentageState: .off)
+        }
+    }
     
     
     @IBAction func addCouponAction(_ sender: Any) {
         let title = couponTitleTF.text ?? ""
-        let targetSelection = couponCollectionTargetMenuTargetRes ?? ""
-        let valueType = couponValueTypeMenuRes ?? ""
+        let targetSelection = couponCollectionTargetMenuTargetRes
+        let valueType = couponValueTypeMenuRes
         let value = couponValueTF.text ?? ""
-        let collectionId = couponCollectionTargetMenuCollectionIdRes ?? []
+        let collectionId = couponCollectionTargetMenuCollectionIdRes
         let couponCode = couponCodeTF.text ?? ""
-        addNewcouponPriceRule(title: title, targetSelection: targetSelection, valueType: valueType, value: value, collectionId: collectionId, couponCode: couponCode)
+ 
+        if flagEditAdd == 1{ //edit
+            print(priceRuleid!)
+            editCouponPriceRule(priceRuleId: priceRuleid!, title: title, valueType: valueType, value: value)
+        }else{ //add
+            if(title.isEmpty || value.isEmpty || couponCode.isEmpty){
+                self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
+            }else{
+                addNewcouponPriceRule(title: title, targetSelection: targetSelection, valueType: valueType, value: value, collectionId: collectionId, couponCode: couponCode)
+            }
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     
     
     func addNewcouponPriceRule(title: String, targetSelection: String, valueType: String, value: String, collectionId: [Int], couponCode: String){
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "price_rule":[
                 "title": title,
                 "target_type": "line_item",
@@ -60,17 +104,13 @@ class CouponsViewController: UIViewController {
                 "value": "-\(value)",
                 "customer_selection": "all",
                 "entitled_collection_ids": collectionId,
-//                    [
-//                    438126182690 //team
-//                    437934555426 //MEN
-//                ],
                 "starts_at": "2023-03-10T12:00:00-04:00",
                 "ends_at": "2023-04-31T12:00:00-04:00"
             ]
         ]
         
         couponsViewModel.bindCouponPriceRule = { [weak self] in
-            var priceRuleId = self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0
+            let priceRuleId = self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0
             print(self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0)
             
             self?.addNewCouponDiscountCode(couponPriceRuleId: priceRuleId, couponCode: couponCode)
@@ -80,23 +120,35 @@ class CouponsViewController: UIViewController {
     }
     
     func addNewCouponDiscountCode(couponPriceRuleId: Int, couponCode: String){
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "discount_code":[
                 "code": couponCode
                 ]
         ]
-        //1389305561378
         couponsViewModel.createCouponDiscountCode(params: params, couponPriceRuleId: couponPriceRuleId)
     }
     
     
+    func editCouponPriceRule(priceRuleId: Int, title: String, valueType: String, value: String){
+        let params: [String: Any] = [
+            "price_rule":[
+                "id": priceRuleId,
+                "value_type": valueType,
+                "value": value,
+                "title": title
+                ]
+        ]
+        couponsViewModel.editCouponPriceRule(priceRuleId: priceRuleId, params: params)
+    }
     
-    func couponValueTypeMenuDetails(){
+    
+    
+    func couponValueTypeMenuDetails(fixedState: UIMenuElement.State, percentageState: UIMenuElement.State){
         couponValueTypeMenu.menu = UIMenu(title: "Value Type", options: .singleSelection, children: [
-            UIAction(title: "Fixed Amount",handler: { [weak self] action in
+            UIAction(title: "Fixed Amount",state: fixedState,handler: { [weak self] action in
                 self?.couponValueTypeMenuRes = "fixed_amount"
             }),
-            UIAction(title: "Percentage", handler: { [weak self] action in
+            UIAction(title: "Percentage",state: percentageState,handler: { [weak self] action in
                 self?.couponValueTypeMenuRes = "percentage"
             })
         ])
@@ -146,6 +198,13 @@ class CouponsViewController: UIViewController {
         couponCollectionTargetMenu.showsMenuAsPrimaryAction = true
         couponCollectionTargetMenu.changesSelectionAsPrimaryAction = true
         //       // productVendor.preferredBehavioralStyle = .automatic
+    }
+    
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
+        
     }
      
 }

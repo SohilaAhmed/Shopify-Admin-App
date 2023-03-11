@@ -12,6 +12,7 @@ class PresetAllCouponTableViewCell: UITableViewCell {
     @IBOutlet weak var couponTitleLabel: UILabel!
     @IBOutlet weak var couponValueLabel: UILabel!
     
+    var editCouponButton: (() -> ()) = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,9 +26,7 @@ class PresetAllCouponTableViewCell: UITableViewCell {
     }
     
     @IBAction func EditCouponButton(_ sender: Any) {
-        
-        
-        
+          editCouponButton()
     }
     
     override func layoutSubviews() {

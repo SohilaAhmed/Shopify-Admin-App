@@ -11,7 +11,7 @@ private let BASE_URL = "https://b24cfe7f0d5cba8ddb793790aaefa12a:shpat_ca3fe0e34
 
 protocol Service{
     static func postApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
-    static func getApi<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void)
+    static func getApi<T: Decodable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void)
     static  func updateApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
     static  func deleteFromApi(endPoint: EndPoints)
 }
@@ -21,7 +21,8 @@ class NetworkService : Service{
     static  func postApi<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void){
         let path = "\(BASE_URL)\(endPoint.path)"
         let url = URL(string: path)
-        var urlRequst = URLRequest(url: url!)
+        guard let url = url else{ return }
+        var urlRequst = URLRequest(url: url)
         urlRequst.httpMethod = "post"
         urlRequst.httpShouldHandleCookies = false
         
@@ -55,9 +56,10 @@ class NetworkService : Service{
     
     
     // using url session
-    static func getApi<T: Decodable>( urlStr: String, completionHandeler: @escaping ((T?), Error?) -> Void){
+    static func getApi<T: Decodable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void){
         
-        let url = URL(string: urlStr)
+        let path = "\(BASE_URL)\(endPoint.path)"
+        let url = URL(string: path)
         guard let url = url else{ return }
         let req = URLRequest(url: url)
         let session = URLSession(configuration: URLSessionConfiguration.default)
