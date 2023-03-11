@@ -7,6 +7,11 @@
 
 import Foundation
 
+
+struct AllProductInfo: Codable {
+    let products: [Product]
+}
+
 struct ProductInfo: Codable {
     let product: Product
 }
@@ -23,7 +28,7 @@ struct Product: Codable {
     let variants: [Variant]
 //    let options: [Option]
     let images: [Image]
-//    let image: Image
+    let image: Image?
 
 }
 

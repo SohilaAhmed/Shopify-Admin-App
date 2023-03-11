@@ -23,11 +23,11 @@ struct SmartCollection: Codable {
     let title, sort_order: String
 //    let rules: [Rule]
 //    let published_scope : String
-//    let image: Img
+    let image: BrandImage
 }
 
 // MARK: - Image
-struct Img: Codable {
+struct BrandImage: Codable {
     let src: String
 }
 

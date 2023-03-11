@@ -26,6 +26,9 @@ class ProductViewController: UIViewController {
     
     var productId: Int?
     
+    var flagEditAdd: Int? // 0 if add, 1 if edit
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,8 +38,7 @@ class ProductViewController: UIViewController {
         productVendorMenuMethod()
         productCustomCellectionMenuMethod()
         
-        
-        // NetworkService.deleteFromApi(endPoint: EndPoints.updateProduct(id: 8155363213602))
+ 
     }
     
     
@@ -122,7 +124,7 @@ class ProductViewController: UIViewController {
         let vendor = productVendorRes 
         let productType = productTypeRes 
         let price = productPriceTF.text ?? ""
-        let imgSrc = productImgSrc.text ?? ""
+        let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         let collectionId = productCustomCellectionRes 
         
         addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)

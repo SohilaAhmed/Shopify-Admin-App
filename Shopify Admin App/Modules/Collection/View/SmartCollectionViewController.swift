@@ -14,6 +14,8 @@ class SmartCollectionViewController: UIViewController {
     
     var smartCollectionViewModel: SmartCollectionViewModel!
     
+    var flagEditAdd: Int? // 0 if add, 1 if edit
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

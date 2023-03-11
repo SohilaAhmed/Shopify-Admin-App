@@ -13,6 +13,9 @@ class CustomCollectionVC: UIViewController {
     
     var customCollectionViewModel: CustomCollectionViewModel!
     
+    var flagEditAdd: Int? // 0 if add, 1 if edit
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +40,7 @@ class CustomCollectionVC: UIViewController {
         ]
         
         customCollectionViewModel.bindCreateCustomCollection = {[weak self] in
-            print((self?.customCollectionViewModel.newCustomCollection.custom_collection.title) ?? "")
+            print((self?.customCollectionViewModel.customCollectionNew.custom_collection.title) ?? "")
         }
         
         customCollectionViewModel.createNewCustomCollection(params: params)

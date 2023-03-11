@@ -11,7 +11,7 @@ class CustomCollectionViewModel{
     
     var bindCreateCustomCollection: (() -> ()) = {}
     
-    var newCustomCollection: CustomCollectionModel!{
+    var customCollectionNew: CustomCollectionModel!{
         didSet{
             bindCreateCustomCollection()
         }
@@ -20,8 +20,8 @@ class CustomCollectionViewModel{
     func createNewCustomCollection(params: [String: Any]){
         NetworkService.postApi(endPoint: EndPoints.createCustomCollection, params: params) { [weak self] (data: CustomCollectionModel?, error) in
             guard let responsData = data else{ return}
-            self?.newCustomCollection = responsData
-            print(self?.newCustomCollection.custom_collection.title)
+            self?.customCollectionNew = responsData
+            print(self?.customCollectionNew.custom_collection.title)
         }
     }
     
