@@ -136,7 +136,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gw1-Um-vup">
-                                <rect key="frame" x="48" y="712" width="273" height="35"/>
+                                <rect key="frame" x="48" y="705" width="273" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
@@ -705,17 +705,10 @@
                                                     <rect key="frame" x="27" y="167" width="83" height="39"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain">
+                                                    <buttonConfiguration key="configuration" style="plain" title="Edit">
                                                         <imageReference key="image" image="pencil" catalog="system" symbolScale="medium"/>
-                                                        <attributedString key="attributedTitle">
-                                                            <fragment content="  Edit">
-                                                                <attributes>
-                                                                    <font key="NSFont" size="17" name="Helvetica"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                        <color key="baseForegroundColor" name="AccentColor"/>
+                                                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
+                                                        <color key="baseForegroundColor" systemColor="linkColor"/>
                                                     </buttonConfiguration>
                                                     <connections>
                                                         <action selector="editAction:" destination="uoe-ZK-zQj" eventType="touchUpInside" id="pVT-hx-wrV"/>

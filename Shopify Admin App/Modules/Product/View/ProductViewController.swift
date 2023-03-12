@@ -27,7 +27,14 @@ class ProductViewController: UIViewController {
     var productId: Int?
     
     var flagEditAdd: Int? // 0 if add, 1 if edit
-    
+    var productIdEdit: Int?
+    var productTitleEdit: String?
+    var productDetailesEdit: String?
+    var productPriceEdit: String?
+    var productTypeEdit: String?
+    var productVenderEdit: String?
+    var productImgEdit: String?
+    var productCustomCollection: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +87,6 @@ class ProductViewController: UIViewController {
     func addProductImg(productId: Int, imgSrc: String){
         let params: [String : Any] = [
             "image":[
-                //                8151494459682  8154944569634 8154956955938 "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 "product_id": productId,
                 "src": imgSrc
             ]
@@ -127,7 +133,10 @@ class ProductViewController: UIViewController {
         let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         let collectionId = productCustomCellectionRes 
         
+        
         addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
+        
+        self.navigationController?.popViewController(animated: true)
     }
     
     
