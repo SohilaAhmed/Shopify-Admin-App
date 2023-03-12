@@ -65,7 +65,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productItem", for: indexPath) as! DisplayProductCell
         
         cell.productTitle.text = allProducts[indexPath.row].title
-        cell.productPrice.text = allProducts[indexPath.row].variants?.first?.price
+        cell.productPrice.text = "$ \(allProducts[indexPath.row].variants?.first?.price)"
         cell.productImage.kf.setImage(with: URL(string: allProducts[indexPath.row].image?.src ?? ""))
         
         cell.editProduct = { [unowned self] in
