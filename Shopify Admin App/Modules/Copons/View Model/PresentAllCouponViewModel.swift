@@ -22,7 +22,7 @@ class PresentAllCouponViewModel{
         NetworkService.getApi(endPoint: EndPoints.couponPriceRule) { [weak self] (data: AllCouponPriceRuleModel?, error) in
             guard let responsData = data else{ return}
             self?.allCouponPriceRule = responsData
-            print(self?.allCouponPriceRule.price_rules[0].title ?? 0)
+          //  print(self?.allCouponPriceRule.price_rules[0].title ?? 0)
         }
     }
     

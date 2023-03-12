@@ -13,7 +13,7 @@ class ProductViewModel{
     var bindImg: (() -> ()) = {}
     var bindProductCustomCollection: (() -> ()) = {}
     
-    var allProduct : ProductInfo!{
+    var newProduct : ProductInfo!{
         didSet{
             bindResultToProduct()
         }
@@ -37,8 +37,8 @@ class ProductViewModel{
     func createProduct(params: [String: Any]){
         NetworkService.postApi(endPoint: EndPoints.createNewProduct, params: params) { [weak self] (data: ProductInfo?, error) in
             guard let responsData = data else{ return}
-            self?.allProduct = responsData
-//            print(self?.allProduct.product)
+            self?.newProduct = responsData
+          //  print(self?.newProduct.product.id)
         }
     }
     

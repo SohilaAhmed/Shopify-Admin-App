@@ -28,7 +28,7 @@ class SmartCollectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if flagEditAdd == 1{
-            print(smartCollectionId ?? 0)
+         //   print(smartCollectionId ?? 0)
             smartCollectionNameTF.text = smartCollectionTitle
             smartCollectionImgTF.text = smartCollectionImg
         }
@@ -40,8 +40,12 @@ class SmartCollectionViewController: UIViewController {
         let imgLink = smartCollectionImgTF.text ?? "https://www.pexels.com/photo/a-smartwatch-and-a-laptop-6192117/"
         if flagEditAdd == 1{
             editSmartCollection(smartCollectionId: smartCollectionId ?? 0, title: title, imgLink: imgLink)
-        }else{
-            createSmartCollection(title: title, src: imgLink)
+        }else{ //add
+            if(title.isEmpty || imgLink.isEmpty ){
+                self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
+            }else{
+                createSmartCollection(title: title, src: imgLink)
+            }
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -65,7 +69,7 @@ class SmartCollectionViewController: UIViewController {
         ]
         
         smartCollectionViewModel.bindCreateSmartCollection = {[weak self] in
-            print((self?.smartCollectionViewModel.newSmartCollection.smart_collection.title) ?? "")
+         //   print((self?.smartCollectionViewModel.newSmartCollection.smart_collection.title) ?? "")
         }
         
         smartCollectionViewModel.createNewSmartCollection(params: params)
@@ -88,11 +92,17 @@ class SmartCollectionViewController: UIViewController {
         ]
         
         smartCollectionViewModel.bindEditSmartCollection = { [weak self] in
-            print(self?.smartCollectionViewModel.editSmartCollection.smart_collection.title ?? "")
+         //   print(self?.smartCollectionViewModel.editSmartCollection.smart_collection.title ?? "")
         }
         
         smartCollectionViewModel.editSmartCollection(params: params, smartCollectionId: smartCollectionId)
         
+        
+    }
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
         
     }
 

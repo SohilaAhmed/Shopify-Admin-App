@@ -39,7 +39,7 @@ class CouponsViewController: UIViewController {
         
         couponCollectionTargetMenuDetails()
 
-        print(flagEditAdd ?? 7)
+       // print(flagEditAdd ?? 7)
 
         
     }
@@ -51,7 +51,7 @@ class CouponsViewController: UIViewController {
             couponCodeTF.isHidden = true
             couponCollectionTargetLabel.isHidden = true
             couponCodeLabel.isHidden = true
-            print(priceRuleid!)
+           // print(priceRuleid!)
             if(priceRuleValueType == "fixed_amount"){
                 couponValueTypeMenuRes = "fixed_amount"
                 couponValueTypeMenuDetails(fixedState: .on, percentageState: .off)
@@ -78,16 +78,16 @@ class CouponsViewController: UIViewController {
         let couponCode = couponCodeTF.text ?? ""
  
         if flagEditAdd == 1{ //edit
-            print(priceRuleid!)
+         //   print(priceRuleid!)
             editCouponPriceRule(priceRuleId: priceRuleid!, title: title, valueType: valueType, value: value)
+            self.navigationController?.popViewController(animated: true)
         }else{ //add
             if(title.isEmpty || value.isEmpty || couponCode.isEmpty){
                 self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
             }else{
                 addNewcouponPriceRule(title: title, targetSelection: targetSelection, valueType: valueType, value: value, collectionId: collectionId, couponCode: couponCode)
             }
-        }
-        self.navigationController?.popViewController(animated: true)
+        } 
     }
     
     
@@ -111,9 +111,12 @@ class CouponsViewController: UIViewController {
         
         couponsViewModel.bindCouponPriceRule = { [weak self] in
             let priceRuleId = self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0
-            print(self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0)
+          //  print(self?.couponsViewModel.newCouponPriceRule.price_rule.id ?? 0)
             
             self?.addNewCouponDiscountCode(couponPriceRuleId: priceRuleId, couponCode: couponCode)
+            DispatchQueue.main.async {
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
         
         couponsViewModel.createCouponPriceRule(params: params)

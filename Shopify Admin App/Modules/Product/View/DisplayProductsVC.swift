@@ -38,6 +38,8 @@ class DisplayProductsVC: UIViewController {
         displayProductsViewModel.getAllProducts()
     }
     
+    
+    
     @IBAction func addNewProduct(_ sender: Any) {
         let productVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
         productVC.flagEditAdd = 0
@@ -63,13 +65,22 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productItem", for: indexPath) as! DisplayProductCell
         
         cell.productTitle.text = allProducts[indexPath.row].title
-        cell.productPrice.text = allProducts[indexPath.row].variants.first?.price
+        cell.productPrice.text = allProducts[indexPath.row].variants?.first?.price
         cell.productImage.kf.setImage(with: URL(string: allProducts[indexPath.row].image?.src ?? ""))
         
         cell.editProduct = { [unowned self] in
             // navigate and path data
             let productVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
             productVC.flagEditAdd = 1
+            
+            let seprateTitle = allProducts[indexPath.row].title ?? ""
+            let res = seprateTitle.split(separator: "|")
+            productVC.productTitleEdit = String(res[1])
+            productVC.productIdEdit = allProducts[indexPath.row].id
+            productVC.productDetailesEdit = allProducts[indexPath.row].body_html
+            productVC.productPriceEdit = allProducts[indexPath.row].variants?.first?.price
+            productVC.productTypeEdit = allProducts[indexPath.row].product_type
+            productVC.productVenderEdit = allProducts[indexPath.row].vendor
         
             self.navigationController?.pushViewController(productVC, animated: true)
         }
@@ -87,7 +98,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
         
         //AddAction
         alert.addAction(UIAlertAction(title: "OK", style: .default , handler: { [self] action in
-            print("ok clicked")
+           // print("ok clicked")
 
             //delete from server
             displayProductsViewModel.deleteProduct(productId: allProducts[indexPath.row].id ?? 0)
@@ -101,13 +112,13 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel , handler: { action in
-            print("Cancel clicked")
+        //    print("Cancel clicked")
         }))
         
 
         //showAlert
         self.present(alert, animated: true) {
-            print("alert done")
+        //    print("alert done")
         }
     }
     

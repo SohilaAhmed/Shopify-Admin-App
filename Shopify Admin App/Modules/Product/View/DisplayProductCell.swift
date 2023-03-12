@@ -36,8 +36,6 @@ class DisplayProductCell: UICollectionViewCell {
         
         super.layoutSubviews()
     
-//        contentView.layer.cornerRadius = 20
-//        contentView.layer.masksToBounds = true
         
         self.layer.cornerRadius = 20
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2))

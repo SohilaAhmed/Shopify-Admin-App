@@ -29,7 +29,7 @@ class CouponsViewModel{
         NetworkService.postApi(endPoint: EndPoints.couponPriceRule, params: params) { [weak self] (data: CouponPriceRuleModel?, error) in
             guard let responsData = data else{ return}
             self?.newCouponPriceRule = responsData
-            print(self?.newCouponPriceRule.price_rule ?? 0)
+         //   print(self?.newCouponPriceRule.price_rule ?? 0)
         }
     }
     
@@ -37,7 +37,7 @@ class CouponsViewModel{
         NetworkService.postApi(endPoint: EndPoints.couponDiscountCode(id: couponPriceRuleId), params: params) {(data: CouponDiscountCodeModel?, error) in
             guard let responsData = data else{ return}
  
-            print(responsData.discount_code.code ?? "")
+          //  print(responsData.discount_code.code ?? "")
         }
     }
     
@@ -45,7 +45,7 @@ class CouponsViewModel{
         NetworkService.updateApi(endPoint: EndPoints.editPriceRule(id: priceRuleId), params: params) { [weak self] (data: CouponPriceRuleModel?, error)  in
             guard let responsData = data else{ return}
             self?.editCouponPriceRule = responsData
-            print(self?.editCouponPriceRule.price_rule ?? 0)
+          //  print(self?.editCouponPriceRule.price_rule ?? 0)
         }
     }
     

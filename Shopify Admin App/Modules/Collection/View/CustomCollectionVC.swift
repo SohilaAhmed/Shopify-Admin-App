@@ -27,7 +27,7 @@ class CustomCollectionVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if(flagEditAdd == 1){ //edit
-            print(customCollectionId ?? 0)
+           // print(customCollectionId ?? 0)
 
             customCollectionNameTF.text = customCollectionTitle
         }
@@ -42,7 +42,11 @@ class CustomCollectionVC: UIViewController {
         if(flagEditAdd == 1){ //edit
             editCustomCollection(customCollectionId: customCollectionId ?? 0, title: title)
         }else{ //add
-            createCustomCollection(title: title)
+            if(title.isEmpty ){
+                self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
+            }else{
+                createCustomCollection(title: title)
+            }
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -56,7 +60,7 @@ class CustomCollectionVC: UIViewController {
         ]
         
         customCollectionViewModel.bindCreateCustomCollection = {[weak self] in
-            print((self?.customCollectionViewModel.customCollectionNew.custom_collection.title) ?? "")
+        //    print((self?.customCollectionViewModel.customCollectionNew.custom_collection.title) ?? "")
         }
         
         customCollectionViewModel.createNewCustomCollection(params: params)
@@ -71,11 +75,17 @@ class CustomCollectionVC: UIViewController {
         ]
         
         customCollectionViewModel.bindEditCustomCollection = { [weak self] in
-            print(self?.customCollectionViewModel.editCustomCollection.custom_collection.title ?? "")
+    //        print(self?.customCollectionViewModel.editCustomCollection.custom_collection.title ?? "")
         }
         
         customCollectionViewModel.editCustomCollection(params: params, customCollectionId: customCollectionId)
         
+        
+    }
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
         
     }
     

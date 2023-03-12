@@ -158,6 +158,8 @@
                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                     </view>
                     <connections>
+                        <outlet property="collectionLabel" destination="DOW-Jr-h6l" id="TYC-fS-MC9"/>
+                        <outlet property="imgLabel" destination="wO9-4U-afH" id="ne8-8h-v3z"/>
                         <outlet property="productCustomCellectionMenu" destination="9pT-fp-Do4" id="Kwk-2G-JL9"/>
                         <outlet property="productDetailsTF" destination="COQ-cT-Fpy" id="Z4L-ZJ-dLW"/>
                         <outlet property="productImgSrc" destination="3BI-eu-2VF" id="XgM-Dn-diD"/>

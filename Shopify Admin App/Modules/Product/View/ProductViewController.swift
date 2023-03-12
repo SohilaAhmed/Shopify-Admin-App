@@ -18,6 +18,8 @@ class ProductViewController: UIViewController {
     @IBOutlet weak var productmenu: UIButton!
     @IBOutlet weak var productCustomCellectionMenu: UIButton!
     @IBOutlet weak var productImgSrc: UITextField!
+    @IBOutlet weak var imgLabel: UILabel!
+    @IBOutlet weak var collectionLabel: UILabel!
     
     
     var productTypeRes: String = "ACCESSORIES"
@@ -33,8 +35,8 @@ class ProductViewController: UIViewController {
     var productPriceEdit: String?
     var productTypeEdit: String?
     var productVenderEdit: String?
-    var productImgEdit: String?
-    var productCustomCollection: String?
+    //    var productImgEdit: String?
+    //    var productCustomCollection: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +47,53 @@ class ProductViewController: UIViewController {
         productVendorMenuMethod()
         productCustomCellectionMenuMethod()
         
- 
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if flagEditAdd == 1{ //edit
+            imgLabel.isHidden = true
+            collectionLabel.isHidden = true
+            productCustomCellectionMenu.isHidden = true
+            productImgSrc.isHidden = true
+            
+            productId = productIdEdit ?? 0
+            productTitleTF.text = productTitleEdit
+            productDetailsTF.text = productDetailesEdit
+            productPriceTF.text = productPriceEdit
+            productTypeRes = productTypeEdit ?? ""
+            productVendorRes = productVenderEdit ?? ""
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
+    @IBAction func addProductButtonAction(_ sender: Any) {
+        let title = productTitleTF.text ?? ""
+        let details = productDetailsTF.text ?? ""
+        let vendor = productVendorRes
+        let productType = productTypeRes
+        let price = productPriceTF.text ?? ""
+        let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        let collectionId = productCustomCellectionRes
+        
+        
+        if flagEditAdd == 1{ //edit
+            editProduct(productId: productId ?? 0, title: title, vendor: vendor, details: details, productType: productType, price: price)
+            self.navigationController?.popViewController(animated: true)
+        }else{ //add
+            if(title.isEmpty || details.isEmpty || price.isEmpty || imgSrc.isEmpty ){
+                self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
+            }else{
+                addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
+            }
+        }
+    }
     
     //add product title, vender(smart collection), varint(price), productType(floaty button filter)
     func addProductInfo(title: String, details: String, vendor: String,productType: String, price: String, imgSrc: String, collectionId: Int){
@@ -71,14 +117,19 @@ class ProductViewController: UIViewController {
         ]
         
         productViewModel.bindResultToProduct = {[weak self] in
-            print((self?.productViewModel.allProduct.product.id) ?? 0)
-            self?.productId = (self?.productViewModel.allProduct.product.id) ?? 0
+            print((self?.productViewModel.newProduct.product.id) ?? 0)
+            self?.productId = (self?.productViewModel.newProduct.product.id) ?? 0
             
             self?.addProductImg(productId: self?.productId ?? 0, imgSrc: imgSrc)
             
             self?.addProductToCustomCollection(productId: self?.productId ?? 0, collectionId: collectionId)
             
             self?.editProductState(productId: self?.productId ?? 0)
+            
+            DispatchQueue.main.async {
+                self?.navigationController?.popViewController(animated: true)
+            }
+            
         }
         productViewModel.createProduct(params: params)
     }
@@ -92,7 +143,7 @@ class ProductViewController: UIViewController {
             ]
         ]
         productViewModel.bindImg = {[weak self] in
-            print((self?.productViewModel.productImg.image.src) ?? "")
+            //  print((self?.productViewModel.productImg.image.src) ?? "")
         }
         productViewModel.createProductImg(params: params, id: productId)
     }
@@ -113,6 +164,26 @@ class ProductViewController: UIViewController {
     }
     
     // edit product state
+    func editProduct(productId: Int, title: String, vendor: String, details: String, productType: String, price: String){
+        
+        let params: [String: Any] = [
+            "product":[
+                "title": "\(vendor) | \(title)",
+                "body_html": details,
+                "vendor": vendor,
+                "product_type": productType,
+                "status": "active",
+                "published": true,
+                "variants": [
+                    [
+                        "price": price,
+                    ]
+                ]
+            ]
+        ]
+        productViewModel.editProduct(params: params, id: productId)
+    }
+    
     func editProductState(productId: Int){
         let params: [String: Any] = [
             "product":[
@@ -121,22 +192,6 @@ class ProductViewController: UIViewController {
             ]
         ]
         productViewModel.editProduct(params: params, id: productId)
-    }
-    
-    
-    @IBAction func addProductButtonAction(_ sender: Any) {
-        let title = productTitleTF.text ?? ""
-        let details = productDetailsTF.text ?? ""
-        let vendor = productVendorRes 
-        let productType = productTypeRes 
-        let price = productPriceTF.text ?? ""
-        let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        let collectionId = productCustomCellectionRes 
-        
-        
-        addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
-        
-        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -233,5 +288,12 @@ class ProductViewController: UIViewController {
         productCustomCellectionMenu.showsMenuAsPrimaryAction = true
         productCustomCellectionMenu.changesSelectionAsPrimaryAction = true
         //       // productVendor.preferredBehavioralStyle = .automatic
+    }
+    
+    func showAlert(title:String,message:String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        self.present(alert, animated: true)
+        
     }
 }

@@ -26,7 +26,7 @@ class PresentAllCouponViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         presentAllCouponViewModel.bindAllCouponPriceRule = { [weak self] in
 
-            print(self?.presentAllCouponViewModel.allCouponPriceRule.price_rules[0].title ?? "")
+          //  print(self?.presentAllCouponViewModel.allCouponPriceRule.price_rules[0].title ?? "")
             self?.allCoupon = self?.presentAllCouponViewModel.allCouponPriceRule.price_rules ?? []
             DispatchQueue.main.async { [weak self] in
                 self?.couponTable.reloadData()
@@ -56,7 +56,7 @@ extension PresentAllCouponViewController: UITableViewDataSource,UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(allCoupon.count)
+ 
         return allCoupon.count
     }
     
@@ -101,7 +101,7 @@ extension PresentAllCouponViewController: UITableViewDataSource,UITableViewDeleg
         
         //AddAction
         alert.addAction(UIAlertAction(title: "OK", style: .default , handler: { [self] action in
-            print("ok clicked")
+           // print("ok clicked")
 
             //delete from server
             presentAllCouponViewModel.deleteCoupon(priceRuleId: allCoupon[indexPath.row].id ?? 0)
@@ -115,13 +115,13 @@ extension PresentAllCouponViewController: UITableViewDataSource,UITableViewDeleg
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel , handler: { action in
-            print("Cancel clicked")
+        //    print("Cancel clicked")
         }))
         
 
         //showAlert
         self.present(alert, animated: true) {
-            print("alert done")
+         //   print("alert done")
         }
     }
     

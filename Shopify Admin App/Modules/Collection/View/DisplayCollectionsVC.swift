@@ -114,7 +114,7 @@ extension DisplayCollectionsVC : UICollectionViewDelegate,UICollectionViewDataSo
         
         //AddAction
         alert.addAction(UIAlertAction(title: "OK", style: .default , handler: { [self] action in
-            print("ok clicked")
+           // print("ok clicked")
 
             //delete from server
             displayCollectionsViewModel.deleteFromSmartCollection(smartCollectionId: smartCollections[indexPath.row].id )
@@ -128,13 +128,13 @@ extension DisplayCollectionsVC : UICollectionViewDelegate,UICollectionViewDataSo
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel , handler: { action in
-            print("Cancel clicked")
+           // print("Cancel clicked")
         }))
         
 
         //showAlert
         self.present(alert, animated: true) {
-            print("alert done")
+         //   print("alert done")
         }
     }
     
@@ -212,8 +212,8 @@ extension DisplayCollectionsVC: UITableViewDataSource,UITableViewDelegate {
         
         //AddAction
         alert.addAction(UIAlertAction(title: "OK", style: .default , handler: { [weak self] action in
-            print("ok clicked")
-
+         //   print("ok clicked")
+//
             //delete from server
             self?.displayCollectionsViewModel.deleteFromCustomCollection(customCollectionId: self?.customCollectionResult[indexPath.row].id ?? 0 )
 //            //delete from array
@@ -226,13 +226,13 @@ extension DisplayCollectionsVC: UITableViewDataSource,UITableViewDelegate {
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel , handler: { action in
-            print("Cancel clicked")
+       //     print("Cancel clicked")
         }))
         
 
         //showAlert
         self.present(alert, animated: true) {
-            print("alert done")
+        //    print("alert done")
         }
     }
     

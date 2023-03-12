@@ -16,6 +16,8 @@ struct ProductInfo: Codable {
     let product: Product
 }
 
+
+
 // MARK: - Product
 struct Product: Codable {
     let id: Int?
@@ -25,9 +27,9 @@ struct Product: Codable {
 //    let updatedAt, publishedAt: Date
 //    let templateSuffix: String
 //    let status, publishedScope, tags, adminGraphqlAPIID: String
-    let variants: [Variant]
+    let variants: [Variant]?
 //    let options: [Option]
-    let images: [Image]
+    let images: [Image]?
     let image: Image?
 
 }

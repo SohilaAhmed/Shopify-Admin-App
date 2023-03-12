@@ -21,7 +21,7 @@ class DisplayProductViewModel {
         NetworkService.getApi(endPoint: EndPoints.createNewProduct ) { [weak self] (data : AllProductInfo? , error ) in
             guard let data = data else{ return}
             self?.allProducts = data
-            print(data)
+      //      print(data)
         }
     }
     
