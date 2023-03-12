@@ -65,7 +65,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productItem", for: indexPath) as! DisplayProductCell
         
         cell.productTitle.text = allProducts[indexPath.row].title
-        cell.productPrice.text = "$ \(allProducts[indexPath.row].variants?.first?.price)"
+        cell.productPrice.text = "$ \(allProducts[indexPath.row].variants?.first?.price ?? "")"
         cell.productImage.kf.setImage(with: URL(string: allProducts[indexPath.row].image?.src ?? ""))
         
         cell.editProduct = { [unowned self] in
@@ -129,14 +129,15 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
 
 extension DisplayProductsVC : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-     //return  CGSize(width: 230, height: 328)
-        return CGSize(width: UIScreen.main.bounds.width/2.2, height: self.view.frame.height * 0.30)
+     return  CGSize(width: 180, height: 244)
+//        return CGSize(width: self.view.frame.width / 1.9, height: self.view.frame.height * 0.30)
+//        return CGSize(width: UIScreen.main.bounds.width/2.2, height: self.view.frame.height * 0.30)
         //return CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/5)
     }
         
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets.zero
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.zero
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
@@ -145,7 +146,7 @@ extension DisplayProductsVC : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 1, left: 2, bottom: 1, right: 2)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 1, left: 2, bottom: 1, right: 2)
+//    }
 }
