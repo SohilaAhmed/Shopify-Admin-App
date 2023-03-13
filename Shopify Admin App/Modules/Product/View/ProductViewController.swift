@@ -174,11 +174,11 @@ class ProductViewController: UIViewController {
                 "product_type": productType,
                 "status": "active",
                 "published": true,
-                "variants": [
-                    [
-                        "price": price,
-                    ]
-                ]
+//                "variants": [
+//                    [
+//                        "price": price,
+//                    ]
+//                ]
             ]
         ]
         productViewModel.editProduct(params: params, id: productId)
