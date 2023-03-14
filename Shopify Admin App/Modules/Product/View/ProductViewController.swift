@@ -32,7 +32,7 @@ class ProductViewController: UIViewController {
     var productIdEdit: Int?
     var productTitleEdit: String?
     var productDetailesEdit: String?
-    var productPriceEdit: String?
+    var productPriceEdit: [Variant]?
     var productTypeEdit: String?
     var productVenderEdit: String?
     //    var productImgEdit: String?
@@ -61,7 +61,7 @@ class ProductViewController: UIViewController {
             productId = productIdEdit ?? 0
             productTitleTF.text = productTitleEdit
             productDetailsTF.text = productDetailesEdit
-            productPriceTF.text = productPriceEdit
+            productPriceTF.text = productPriceEdit?[0].price
             productTypeRes = productTypeEdit ?? ""
             productVendorRes = productVenderEdit ?? ""
             
@@ -78,19 +78,23 @@ class ProductViewController: UIViewController {
         let details = productDetailsTF.text ?? ""
         let vendor = productVendorRes
         let productType = productTypeRes
-        let price = productPriceTF.text ?? ""
+        productPriceEdit![0].price = productPriceTF.text ?? ""
+        let priceAdd = productPriceTF.text ?? ""
         let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         let collectionId = productCustomCellectionRes
         
         
+        
         if flagEditAdd == 1{ //edit
-            editProduct(productId: productId ?? 0, title: title, vendor: vendor, details: details, productType: productType, price: price)
+            print("_________________")
+            print(productPriceEdit ?? [])
+            editProduct(productId: productId ?? 0, title: title, vendor: vendor, details: details, productType: productType, price: productPriceEdit ?? [])
             self.navigationController?.popViewController(animated: true)
         }else{ //add
-            if(title.isEmpty || details.isEmpty || price.isEmpty || imgSrc.isEmpty ){
+            if(title.isEmpty || details.isEmpty || priceAdd.isEmpty || imgSrc.isEmpty ){
                 self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
             }else{
-                addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: price, imgSrc: imgSrc, collectionId: collectionId)
+                addProductInfo(title: title, details: details, vendor: vendor, productType: productType, price: priceAdd, imgSrc: imgSrc, collectionId: collectionId)
             }
         }
     }
@@ -164,7 +168,7 @@ class ProductViewController: UIViewController {
     }
     
     // edit product state
-    func editProduct(productId: Int, title: String, vendor: String, details: String, productType: String, price: String){
+    func editProduct(productId: Int, title: String, vendor: String, details: String, productType: String, price: [Variant]){
         
         let params: [String: Any] = [
             "product":[
@@ -174,11 +178,12 @@ class ProductViewController: UIViewController {
                 "product_type": productType,
                 "status": "active",
                 "published": true,
-//                "variants": [
-//                    [
-//                        "price": price,
-//                    ]
-//                ]
+                "variants":[
+                    [
+                        "id": price[0].id,
+                        "price": price[0].price
+                    ]
+                ]
             ]
         ]
         productViewModel.editProduct(params: params, id: productId)

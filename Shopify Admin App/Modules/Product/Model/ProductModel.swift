@@ -9,36 +9,36 @@ import Foundation
 
 
 struct AllProductInfo: Codable {
-    let products: [Product]
+    var products: [Product]
 }
 
 struct ProductInfo: Codable {
-    let product: Product
+    var product: Product
 }
 
 
 
 // MARK: - Product
 struct Product: Codable {
-    let id: Int?
-    let title, body_html, vendor, product_type, status : String?
+    var id: Int?
+    var title, body_html, vendor, product_type, status : String?
 //    let createdAt: Date
 //    let handle: String
 //    let updatedAt, publishedAt: Date
 //    let templateSuffix: String
 //    let status, publishedScope, tags, adminGraphqlAPIID: String
-    let variants: [Variant]?
+    var variants: [Variant]?
 //    let options: [Option]
-    let images: [Image]?
-    let image: Image?
+    var images: [Image]?
+    var image: Image?
 
 }
 
 // MARK: - Image
 struct Image: Codable {
-    let id, productID, position: Int
-    let width, height: Int
-    let src: String
+    var id, productID, position: Int
+    var width, height: Int
+    var src: String
     
 
     enum CodingKeys: String, CodingKey {
@@ -54,8 +54,8 @@ struct Image: Codable {
 
 // MARK: - Variant
 struct Variant: Codable {
-    let id, productID: Int
-    let title, price: String
+    var id, productID: Int
+    var title, price: String
     
 
     enum CodingKeys: String, CodingKey {

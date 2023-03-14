@@ -78,7 +78,7 @@ extension DisplayProductsVC: UICollectionViewDelegate,UICollectionViewDataSource
             productVC.productTitleEdit = String(res[1])
             productVC.productIdEdit = allProducts[indexPath.row].id
             productVC.productDetailesEdit = allProducts[indexPath.row].body_html
-            productVC.productPriceEdit = allProducts[indexPath.row].variants?.first?.price
+            productVC.productPriceEdit = allProducts[indexPath.row].variants
             productVC.productTypeEdit = allProducts[indexPath.row].product_type
             productVC.productVenderEdit = allProducts[indexPath.row].vendor
         
