@@ -93,15 +93,16 @@ extension DisplayCollectionsVC : UICollectionViewDelegate,UICollectionViewDataSo
             let smartCollectionVC = self.storyboard?.instantiateViewController(withIdentifier: "SmartCollectionViewController") as! SmartCollectionViewController
             
             smartCollectionVC.flagEditAdd = 1
-            smartCollectionVC.smartCollectionId = smartCollections[indexPath.row].id
+            smartCollectionVC.smartCollectionId = smartCollections[indexPath.row].id ?? 0
             smartCollectionVC.smartCollectionTitle = smartCollections[indexPath.row].title
-            smartCollectionVC.smartCollectionImg = smartCollections[indexPath.row].image.src
+            smartCollectionVC.smartCollectionImg = smartCollections[indexPath.row].image
             
             
             self.navigationController?.pushViewController(smartCollectionVC, animated: true)
         }
         cell.deleteSmartCollectioButton = { [unowned self] in
             // remove from collection, server, array
+            print(smartCollections[indexPath.row].id ?? 0)
             showAlertDeleteSmartCollection(indexPath: indexPath)
         }
         
@@ -117,7 +118,7 @@ extension DisplayCollectionsVC : UICollectionViewDelegate,UICollectionViewDataSo
            // print("ok clicked")
 
             //delete from server
-            displayCollectionsViewModel.deleteFromSmartCollection(smartCollectionId: smartCollections[indexPath.row].id )
+            displayCollectionsViewModel.deleteFromSmartCollection(smartCollectionId: smartCollections[indexPath.row].id ?? 0 )
             //delete from array
             smartCollections.remove(at: indexPath.row)
             //delete from table

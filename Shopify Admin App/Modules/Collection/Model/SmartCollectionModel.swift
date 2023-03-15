@@ -19,16 +19,16 @@ struct AllSmartCollectionModel: Codable {
 
 // MARK: - SmartCollection
 struct SmartCollection: Codable {
-    let id: Int
+    let id: Int?
     let title, sort_order: String
 //    let rules: [Rule]
 //    let published_scope : String
-    let image: BrandImage
+    var image: BrandImage
 }
 
 // MARK: - Image
 struct BrandImage: Codable {
-    let src: String
+    var src: String
 }
 
 // MARK: - Rule

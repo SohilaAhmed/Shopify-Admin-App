@@ -78,7 +78,7 @@ class ProductViewController: UIViewController {
         let details = productDetailsTF.text ?? ""
         let vendor = productVendorRes
         let productType = productTypeRes
-        productPriceEdit![0].price = productPriceTF.text ?? ""
+        
         let priceAdd = productPriceTF.text ?? ""
         let imgSrc = productImgSrc.text ?? "https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         let collectionId = productCustomCellectionRes
@@ -86,8 +86,8 @@ class ProductViewController: UIViewController {
         
         
         if flagEditAdd == 1{ //edit
-            print("_________________")
-            print(productPriceEdit ?? [])
+            
+            productPriceEdit![0].price = productPriceTF.text ?? ""
             editProduct(productId: productId ?? 0, title: title, vendor: vendor, details: details, productType: productType, price: productPriceEdit ?? [])
             self.navigationController?.popViewController(animated: true)
         }else{ //add
@@ -146,9 +146,11 @@ class ProductViewController: UIViewController {
                 "src": imgSrc
             ]
         ]
-        productViewModel.bindImg = {[weak self] in
-            //  print((self?.productViewModel.productImg.image.src) ?? "")
-        }
+        
+        
+//        productViewModel.bindImg = {[weak self] in
+//            //  print((self?.productViewModel.productImg.image.src) ?? "")
+//        }
         productViewModel.createProductImg(params: params, id: productId)
     }
     
@@ -160,9 +162,9 @@ class ProductViewController: UIViewController {
                 "collection_id": collectionId
             ]
         ]
-        productViewModel.bindProductCustomCollection = {[weak self] in
-            print((self?.productViewModel.productCustomCollection.collect.collection_id) ?? "")
-        }
+//        productViewModel.bindProductCustomCollection = {[weak self] in
+//            print((self?.productViewModel.productCustomCollection.collect.collection_id) ?? "")
+//        }
         
         productViewModel.addProdoctCustomCollection(params: params)
     }

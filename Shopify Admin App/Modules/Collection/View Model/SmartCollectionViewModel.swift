@@ -29,7 +29,7 @@ class SmartCollectionViewModel{
         NetworkService.postApi(endPoint: EndPoints.createSmartCollection, params: params) { [weak self] (data: SmartCollectionModel?, error) in
             guard let responsData = data else{ return}
             self?.newSmartCollection = responsData
-         //   print(self?.newSmartCollection.smart_collection.title ?? "")
+            print(self?.newSmartCollection.smart_collection.title ?? "")
         }
     }
     
@@ -37,7 +37,7 @@ class SmartCollectionViewModel{
         NetworkService.updateApi(endPoint: EndPoints.editSmartCollection(id: smartCollectionId), params: params) { [weak self] (data: SmartCollectionModel?, error) in
             guard let responsData = data else{ return }
             self?.editSmartCollection = responsData
-          //  print(self?.editSmartCollection.smart_collection.title ?? "")
+            print(self?.editSmartCollection.smart_collection.title ?? "")
         }
     }
     

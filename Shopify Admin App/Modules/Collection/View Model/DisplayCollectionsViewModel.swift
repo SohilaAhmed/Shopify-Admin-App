@@ -42,7 +42,7 @@ class DisplayCollectionsViewModel {
     }
     
     func deleteFromSmartCollection(smartCollectionId: Int){
-        NetworkService.deleteFromApi(endPoint: EndPoints.editCustomCollection(id: smartCollectionId))
+        NetworkService.deleteFromApi(endPoint: EndPoints.editSmartCollection(id: smartCollectionId))
     }
     
     func deleteFromCustomCollection(customCollectionId: Int){

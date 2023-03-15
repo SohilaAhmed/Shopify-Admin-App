@@ -10,8 +10,8 @@ import Foundation
 class ProductViewModel{
     
     var bindResultToProduct: (() -> ()) = {}
-    var bindImg: (() -> ()) = {}
-    var bindProductCustomCollection: (() -> ()) = {}
+//    var bindImg: (() -> ()) = {}
+//    var bindProductCustomCollection: (() -> ()) = {}
     
     var newProduct : ProductInfo!{
         didSet{
@@ -19,17 +19,17 @@ class ProductViewModel{
         }
     }
     
-    var productImg : ProductImgModel!{
-        didSet{
-            bindImg()
-        }
-    }
-    
-    var productCustomCollection : ProductCustomCollectionModel!{
-        didSet{
-            bindProductCustomCollection()
-        }
-    }
+//    var productImg : ProductImgModel!{
+//        didSet{
+//            bindImg()
+//        }
+//    }
+//
+//    var productCustomCollection : ProductCustomCollectionModel!{
+//        didSet{
+//            bindProductCustomCollection()
+//        }
+//    }
     
 
 
@@ -43,26 +43,26 @@ class ProductViewModel{
     }
     
     func createProductImg(params: [String: Any], id: Int){
-        NetworkService.postApi(endPoint: EndPoints.createProductImg(id: id), params: params) { [weak self] (data: ProductImgModel?, error) in
-            guard let responsData = data else{ return}
-            self?.productImg = responsData
+        NetworkService.postApi(endPoint: EndPoints.createProductImg(id: id), params: params) { (data: ProductImgModel?, error) in
+//            guard let responsData = data else{ return}
+//            self?.productImg = responsData
 //            print(self?.productImg.image.src)
         }
     }
     
     func addProdoctCustomCollection(params: [String: Any]){
-        NetworkService.postApi(endPoint: EndPoints.addProductToCustomCollection, params: params) { [weak self] (data: ProductCustomCollectionModel?, error) in
-            guard let responsData = data else{ return}
-            self?.productCustomCollection = responsData
+        NetworkService.postApi(endPoint: EndPoints.addProductToCustomCollection, params: params) {(data: ProductCustomCollectionModel?, error) in
+//            guard let responsData = data else{ return}
+//            self?.productCustomCollection = responsData
 //            print(self?.productCustomCollection.collect.collection_id)
         }
     }
     
     func editProduct(params: [String: Any], id: Int){
-        NetworkService.updateApi(endPoint: EndPoints.updateProduct(id: id), params: params) { [weak self] (data: ProductInfo?, error) in
-            guard let responsData = data else{ return}
-
-            print(responsData.product.title)
+        NetworkService.updateApi(endPoint: EndPoints.updateProduct(id: id), params: params) {(data: ProductInfo?, error) in
+//            guard let responsData = data else{ return}
+//
+//            print(responsData.product.title)
         }
     }
     

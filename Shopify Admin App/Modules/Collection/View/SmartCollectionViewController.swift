@@ -9,6 +9,8 @@ import UIKit
 
 class SmartCollectionViewController: UIViewController {
 
+//    @IBOutlet weak var smartCollectionNameTF: UITextField!
+//    @IBOutlet weak var smartCollectionImgTF: UITextField!
     @IBOutlet weak var smartCollectionNameTF: UITextField!
     @IBOutlet weak var smartCollectionImgTF: UITextField!
     
@@ -17,7 +19,7 @@ class SmartCollectionViewController: UIViewController {
     var flagEditAdd: Int? // 0 if add, 1 if edit
     var smartCollectionId: Int?
     var smartCollectionTitle: String?
-    var smartCollectionImg: String?
+    var smartCollectionImg: BrandImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,18 +30,19 @@ class SmartCollectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if flagEditAdd == 1{
-         //   print(smartCollectionId ?? 0)
+            print("__________________")
+            print(smartCollectionId ?? 0)
             smartCollectionNameTF.text = smartCollectionTitle
-            smartCollectionImgTF.text = smartCollectionImg
+            smartCollectionImgTF.text = smartCollectionImg?.src
         }
     }
   
-    
-    @IBAction func doneSmartCollection(_ sender: Any) {
+    @IBAction func doneSmartCollectionEdit(_ sender: Any) {
         let title = smartCollectionNameTF.text ?? ""
         let imgLink = smartCollectionImgTF.text ?? "https://www.pexels.com/photo/a-smartwatch-and-a-laptop-6192117/"
         if flagEditAdd == 1{
-            editSmartCollection(smartCollectionId: smartCollectionId ?? 0, title: title, imgLink: imgLink)
+            smartCollectionImg?.src = smartCollectionImgTF.text ?? "https://www.pexels.com/photo/a-smartwatch-and-a-laptop-6192117/"
+            editSmartCollection(smartCollectionId: smartCollectionId ?? 0, title: title, imgLink: smartCollectionImg!)
         }else{ //add
             if(title.isEmpty || imgLink.isEmpty ){
                 self.showAlert(title: "⚠️", message: "Fields can't be empty!!")
@@ -49,6 +52,7 @@ class SmartCollectionViewController: UIViewController {
         }
         self.navigationController?.popViewController(animated: true)
     }
+    
     
     
     func createSmartCollection(title: String, src: String){
@@ -69,30 +73,32 @@ class SmartCollectionViewController: UIViewController {
         ]
         
         smartCollectionViewModel.bindCreateSmartCollection = {[weak self] in
-         //   print((self?.smartCollectionViewModel.newSmartCollection.smart_collection.title) ?? "")
+            print((self?.smartCollectionViewModel.newSmartCollection.smart_collection.title) ?? "")
         }
         
         smartCollectionViewModel.createNewSmartCollection(params: params)
     }
     
-    func editSmartCollection(smartCollectionId: Int, title: String, imgLink: String){
+    func editSmartCollection(smartCollectionId: Int, title: String, imgLink: BrandImage){
         let params = [
             "smart_collection":[
                 "id": smartCollectionId,
                 "title": title,
-                "rules": [
-                    [
-                        "condition": title
-                    ]
-                ],
+//                "rules": [
+//                    [
+//                        "column": "title",
+//                        "relation": "contains",
+//                        "condition": title
+//                    ]
+//                ],
                 "image": [
-                    "src": imgLink
+                    "src": imgLink.src
                 ]
             ]
         ]
         
         smartCollectionViewModel.bindEditSmartCollection = { [weak self] in
-         //   print(self?.smartCollectionViewModel.editSmartCollection.smart_collection.title ?? "")
+            print(self?.smartCollectionViewModel.editSmartCollection.smart_collection.title ?? "")
         }
         
         smartCollectionViewModel.editSmartCollection(params: params, smartCollectionId: smartCollectionId)
